@@ -1,1 +1,112 @@
-# confirm
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- 検索避け -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <title>SMS確認ページ</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    header img {
+      max-width: 220px;
+      margin-bottom: 25px;
+    }
+
+    #page-title {
+      margin-bottom: 20px;
+      color: #28a745;
+    }
+
+    .meta, .lead {
+      margin-bottom: 16px;
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .issuer {
+      margin-top: 28px;
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .tel-link {
+      color: #007bff;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ロゴ -->
+  <header>
+    <img src="logo.jpg" alt="ロゴ画像" style="max-width: 350px; width: 100%;">
+  </header>
+
+  <h1 id="page-title">確認しました</h1>
+
+  <p class="meta">
+    このページは既読確認用です。
+  </p>
+
+  <p class="lead">
+    自動的に処理されますので、<br>
+    そのままお待ちください。
+  </p>
+
+  <p class="note">
+    ※この操作で回答や入力は発生しません。
+  </p>
+
+  <p class="issuer">
+    発行元：<strong>思川西部土地改良区</strong><br>
+    〒329-0227<br>
+    栃木県小山市大字中里８７０<br>
+    TEL
+    <a href="tel:0285381065" class="tel-link">
+      0285-38-1065
+    </a>
+  </p>
+
+  <!-- 自動遷移処理 -->
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const phone = params.get("phone");
+
+      if (!phone) {
+        document.body.innerHTML =
+          "<p>電話番号が確認できません。</p>";
+        return;
+      }
+
+      const gasUrl =
+        "https://script.google.com/macros/s/AKfycbyU9SxxbjZoA4wVDZhX941aw7-VHp2mPMCfMix_H7dM-UDu_E2f6T8U7NY5jLFwuBj7/exec"
+        + "?phone=" + encodeURIComponent(phone);
+
+      // 1秒表示 → GASへ
+      setTimeout(() => {
+        location.href = gasUrl;
+      }, 1000);
+    })();
+  </script>
+
+</body>
+</html>
